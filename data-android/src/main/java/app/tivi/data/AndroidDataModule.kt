@@ -18,13 +18,17 @@ package app.tivi.data
 
 import androidx.room.Room
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Debug
+import app.tivi.data.simple.PreferenceSimpleStorage
+import app.tivi.data.simple.SimpleStorage
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule {
+class AndroidDataModule {
     @Singleton
     @Provides
     fun provideDatabase(context: Context): TiviDatabase {
@@ -72,4 +76,10 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideDatabaseTransactionRunner(db: TiviDatabase): DatabaseTransactionRunner = RoomTransactionRunner(db)
+
+    @Provides
+    @Named("auth")
+    fun provideAuthSimpleStorage(@Named("auth") prefs: SharedPreferences): SimpleStorage {
+        return PreferenceSimpleStorage(prefs)
+    }
 }

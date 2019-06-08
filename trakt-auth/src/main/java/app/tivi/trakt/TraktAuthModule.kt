@@ -16,10 +16,14 @@
 
 package app.tivi.trakt
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.net.Uri
 import com.uwetrottmann.trakt5.TraktV2
+import com.uwetrottmann.trakt5.services.Episodes
+import com.uwetrottmann.trakt5.services.Search
+import com.uwetrottmann.trakt5.services.Seasons
+import com.uwetrottmann.trakt5.services.Shows
+import com.uwetrottmann.trakt5.services.Sync
+import com.uwetrottmann.trakt5.services.Users
 import dagger.Module
 import dagger.Provides
 import net.openid.appauth.AuthorizationRequest
@@ -57,22 +61,22 @@ class TraktAuthModule {
     }
 
     @Provides
-    fun provideTraktUsersService(traktV2: TraktV2) = traktV2.users()
+    fun provideTraktUsersService(traktV2: TraktV2): Users = traktV2.users()
 
     @Provides
-    fun provideTraktShowsService(traktV2: TraktV2) = traktV2.shows()
+    fun provideTraktShowsService(traktV2: TraktV2): Shows = traktV2.shows()
 
     @Provides
-    fun provideTraktEpisodesService(traktV2: TraktV2) = traktV2.episodes()
+    fun provideTraktEpisodesService(traktV2: TraktV2): Episodes = traktV2.episodes()
 
     @Provides
-    fun provideTraktSeasonsService(traktV2: TraktV2) = traktV2.seasons()
+    fun provideTraktSeasonsService(traktV2: TraktV2): Seasons = traktV2.seasons()
 
     @Provides
-    fun provideTraktSyncService(traktV2: TraktV2) = traktV2.sync()
+    fun provideTraktSyncService(traktV2: TraktV2): Sync = traktV2.sync()
 
     @Provides
-    fun provideTraktSearchService(traktV2: TraktV2) = traktV2.search()
+    fun provideTraktSearchService(traktV2: TraktV2): Search = traktV2.search()
 
     @Singleton
     @Provides
@@ -84,7 +88,7 @@ class TraktAuthModule {
     }
 
     @Provides
-    fun provideAuthState(traktManager: TraktManager) = traktManager.state.blockingFirst()
+    fun provideAuthState(traktManager: TraktManager): TraktAuthState = traktManager.state.blockingFirst()
 
     @Provides
     fun provideAuthRequest(
@@ -102,12 +106,5 @@ class TraktAuthModule {
     @Provides
     fun provideClientAuth(@Named("trakt-client-secret") clientSecret: String): ClientAuthentication {
         return ClientSecretBasic(clientSecret)
-    }
-
-    @Singleton
-    @Provides
-    @Named("auth")
-    fun provideAuthSharedPrefs(context: Context): SharedPreferences {
-        return context.getSharedPreferences("trakt_auth", Context.MODE_PRIVATE)
     }
 }
