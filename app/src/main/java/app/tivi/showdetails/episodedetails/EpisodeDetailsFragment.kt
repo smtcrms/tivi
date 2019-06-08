@@ -65,6 +65,7 @@ class EpisodeDetailsFragment : TiviMvRxBottomSheetFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentEpisodeDetailsBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -113,23 +114,7 @@ class EpisodeDetailsFragment : TiviMvRxBottomSheetFragment() {
 
     override fun invalidate() {
         withState(viewModel) { state ->
-            // TODO don't just use the result
-            binding.episode = state.episode()
-            binding.tmdbImageUrlProvider = state.tmdbImageUrlProvider()
-
-            binding.epDetailsFab.apply {
-                when (state.action) {
-                    EpisodeDetailsViewState.Action.WATCH -> setImageResource(R.drawable.ic_eye_24dp)
-                    EpisodeDetailsViewState.Action.UNWATCH -> setImageResource(R.drawable.ic_eye_off_24dp)
-                }
-                setOnClickListener {
-                    when (state.action) {
-                        EpisodeDetailsViewState.Action.WATCH -> viewModel.markWatched()
-                        EpisodeDetailsViewState.Action.UNWATCH -> viewModel.markUnwatched()
-                    }
-                }
-            }
-
+            binding.state = state
             controller.setData(state)
         }
     }

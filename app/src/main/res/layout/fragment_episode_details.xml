@@ -19,17 +19,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="episode"
-            type="app.tivi.data.entities.Episode" />
-
-        <variable
-            name="tmdbImageUrlProvider"
-            type="app.tivi.tmdb.TmdbImageUrlProvider" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ep_details_root"
         android:layout_width="match_parent"
@@ -42,13 +31,13 @@
             android:layout_height="0dp"
             android:elevation="4dp"
             android:scaleType="centerCrop"
-            app:foregroundScrim="@{ android.graphics.Color.BLACK }"
+            app:foregroundScrim="@{android.graphics.Color.BLACK}"
             app:layout_constraintDimensionRatio="w,1:1.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tmdbBackdropPath="@{episode.tmdbBackdropPath}"
-            app:tmdbImageUrlProvider="@{tmdbImageUrlProvider}" />
+            app:tmdbBackdropPath="@{state.episode.invoke().tmdbBackdropPath}"
+            app:tmdbImageUrlProvider="@{state.tmdbImageUrlProvider.invoke()}" />
 
         <app.tivi.ui.widget.BaselineGridTextView
             android:id="@+id/ep_details_title"
@@ -57,13 +46,25 @@
             android:layout_margin="@dimen/spacing_normal"
             android:elevation="4dp"
             android:ellipsize="end"
-            android:text="@{episode.title}"
+            android:text="@{state.episode.invoke().title}"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:layout_constraintBottom_toBottomOf="@+id/ep_details_fanart"
             app:layout_constraintEnd_toStartOf="@+id/ep_details_fab"
             app:layout_constraintStart_toStartOf="@+id/ep_details_fanart"
             tools:text="@sample/shows.txt" />
+
+        <app.tivi.ui.widget.CheckableFloatingActionButton
+            android:id="@+id/ep_details_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            android:checked="@{state.action == Action.WATCH}"
+            android:src="@drawable/sl_watch"
+            android:onClick="@{() -> state.action == Action.WATCH ? viewModel.markWatched() : viewModel.markUnwatched()}"
+            app:layout_constraintBottom_toTopOf="@+id/ep_details_rv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ep_details_rv" />
 
         <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/ep_details_rv"
@@ -74,19 +75,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ep_details_fanart"
-            app:paddingBottomGestureInsets="@{ true }"
+            app:paddingBottomGestureInsets="@{true}"
             app:spanCount="3" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/ep_details_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_normal"
-            android:src="@drawable/ic_eye_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/ep_details_rv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ep_details_rv" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+        <import type="app.tivi.showdetails.episodedetails.EpisodeDetailsViewState.Action" />
+
+        <variable
+            name="state"
+            type="app.tivi.showdetails.episodedetails.EpisodeDetailsViewState" />
+
+        <variable
+            name="viewModel"
+            type="app.tivi.showdetails.episodedetails.EpisodeDetailsViewModel" />
+    </data>
 
 </layout>
