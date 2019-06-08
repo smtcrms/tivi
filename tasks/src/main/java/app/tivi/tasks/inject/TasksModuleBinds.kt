@@ -18,7 +18,7 @@ package app.tivi.tasks.inject
 
 import app.tivi.actions.ShowTasks
 import app.tivi.appinitializers.AppInitializer
-import app.tivi.appinitializers.ShowTasksInitializer
+import app.tivi.tasks.ShowTasksInitializer
 import app.tivi.tasks.ShowTasksImpl
 import app.tivi.tasks.SyncAllFollowedShows
 import app.tivi.tasks.SyncShowWatchedProgress

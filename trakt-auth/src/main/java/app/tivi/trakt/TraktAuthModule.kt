@@ -16,7 +16,13 @@
 
 package app.tivi.trakt
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
+import androidx.core.net.toUri
+import app.tivi.appinitializers.AppInitializer
+import app.tivi.trakt.TraktConstants.URI_AUTH_ENDPOINT
+import app.tivi.trakt.TraktConstants.URI_TOKEN_ENDPOINT
 import com.uwetrottmann.trakt5.TraktV2
 import com.uwetrottmann.trakt5.services.Episodes
 import com.uwetrottmann.trakt5.services.Search
@@ -24,8 +30,10 @@ import com.uwetrottmann.trakt5.services.Seasons
 import com.uwetrottmann.trakt5.services.Shows
 import com.uwetrottmann.trakt5.services.Sync
 import com.uwetrottmann.trakt5.services.Users
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.IntoSet
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.ClientAuthentication
@@ -38,7 +46,7 @@ import java.io.File
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [TraktModuleBinds::class])
 class TraktAuthModule {
     @Provides
     fun provideTrakt(
@@ -82,8 +90,8 @@ class TraktAuthModule {
     @Provides
     fun provideAuthConfig(): AuthorizationServiceConfiguration {
         return AuthorizationServiceConfiguration(
-                Uri.parse("https://trakt.tv/oauth/authorize"),
-                Uri.parse("https://trakt.tv/oauth/token"),
+                URI_AUTH_ENDPOINT.toUri(),
+                URI_TOKEN_ENDPOINT.toUri(),
                 null)
     }
 
@@ -107,4 +115,18 @@ class TraktAuthModule {
     fun provideClientAuth(@Named("trakt-client-secret") clientSecret: String): ClientAuthentication {
         return ClientSecretBasic(clientSecret)
     }
+
+    @Singleton
+    @Provides
+    @Named("auth")
+    fun provideAuthSharedPrefs(context: Context): SharedPreferences {
+        return context.getSharedPreferences("trakt_auth", Context.MODE_PRIVATE)
+    }
+}
+
+@Module
+abstract class TraktModuleBinds {
+    @Binds
+    @IntoSet
+    abstract fun provideTraktInitializer(bind: TraktInitializer): AppInitializer
 }

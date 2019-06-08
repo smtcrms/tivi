@@ -65,7 +65,9 @@ class TraktManager @Inject constructor(
         // Observer which updates local state
         disposables += authState.observeOn(schedulers.main)
                 .subscribe(::updateAuthState, logger::e)
+    }
 
+    fun init() {
         // Read the auth state from prefs
         GlobalScope.launch(dispatchers.main) {
             val state = withContext(dispatchers.io) {

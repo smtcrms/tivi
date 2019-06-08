@@ -16,7 +16,6 @@
 
 package app.tivi.appinitializers
 
-import android.app.Application
 import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
@@ -28,7 +27,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import javax.inject.Inject
 
 class EpoxyInitializer @Inject constructor() : AppInitializer {
-    override fun init(application: Application) {
+    override fun init() {
         // Make EpoxyController async
         val handlerThread = HandlerThread("epoxy")
         handlerThread.start()

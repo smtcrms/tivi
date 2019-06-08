@@ -16,22 +16,24 @@
 
 package app.tivi.appinitializers
 
-import android.app.Application
+import android.content.Context
 import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
 import androidx.emoji.text.FontRequestEmojiCompatConfig
 import app.tivi.R
 import javax.inject.Inject
 
-class EmojiInitializer @Inject constructor() : AppInitializer {
-    override fun init(application: Application) {
+class EmojiInitializer @Inject constructor(
+    private val context: Context
+) : AppInitializer {
+    override fun init() {
         val fontRequest = FontRequest(
                 "com.google.android.gms.fonts",
                 "com.google.android.gms",
                 "Noto Color Emoji Compat",
                 R.array.com_google_android_gms_fonts_certs)
 
-        val config = FontRequestEmojiCompatConfig(application, fontRequest)
+        val config = FontRequestEmojiCompatConfig(context, fontRequest)
                 .setReplaceAll(true)
 
         EmojiCompat.init(config)

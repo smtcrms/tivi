@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-package app.tivi.appinitializers
+package app.tivi.data.repositories.episodes
 
-import android.os.Looper
-import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.android.schedulers.AndroidSchedulers
-import javax.inject.Inject
+import app.tivi.inject.Tmdb
+import app.tivi.inject.Trakt
+import dagger.Binds
+import dagger.Module
 
-class RxAndroidInitializer @Inject constructor() : AppInitializer {
-    override fun init() {
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler {
-            AndroidSchedulers.from(Looper.getMainLooper(), true)
-        }
-    }
+@Module
+abstract class EpisodesDataModule {
+    @Binds
+    @Trakt
+    abstract fun bind(source: TraktSeasonsEpisodesDataSource): SeasonsEpisodesDataSource
+
+    @Binds
+    @Trakt
+    abstract fun bind(source: TraktEpisodeDataSource): EpisodeDataSource
+
+    @Binds
+    @Tmdb
+    abstract fun bind(source: TmdbEpisodeDataSource): EpisodeDataSource
 }

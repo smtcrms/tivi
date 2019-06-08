@@ -27,7 +27,7 @@ class TiviApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        initializers.init(this)
+        initializers.init()
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
