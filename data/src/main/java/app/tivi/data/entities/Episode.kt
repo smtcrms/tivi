@@ -42,6 +42,7 @@ data class Episode(
     @ColumnInfo(name = "season_id") val seasonId: Long,
     @ColumnInfo(name = "trakt_id") override val traktId: Int? = null,
     @ColumnInfo(name = "tmdb_id") override val tmdbId: Int? = null,
+    @ColumnInfo(name = "tvdb_id") override val tvdbId: Int? = null,
     @ColumnInfo(name = "title") val title: String? = null,
     @ColumnInfo(name = "overview") val summary: String? = null,
     @ColumnInfo(name = "number") val number: Int? = null,
@@ -49,7 +50,7 @@ data class Episode(
     @ColumnInfo(name = "trakt_rating") val traktRating: Float? = null,
     @ColumnInfo(name = "trakt_rating_votes") val traktRatingVotes: Int? = null,
     @ColumnInfo(name = "tmdb_backdrop_path") val tmdbBackdropPath: String? = null
-) : TiviEntity, TraktIdEntity, TmdbIdEntity {
+) : TiviEntity, TraktIdEntity, TmdbIdEntity, TvdbIdEntity {
     companion object {
         val EMPTY = Episode(seasonId = 0)
     }

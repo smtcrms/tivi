@@ -27,3 +27,7 @@ interface TraktIdEntity {
 interface TmdbIdEntity {
     val tmdbId: Int?
 }
+
+interface TvdbIdEntity {
+    val tvdbId: Int?
+}

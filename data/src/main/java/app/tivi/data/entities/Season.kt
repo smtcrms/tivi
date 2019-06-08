@@ -39,6 +39,7 @@ data class Season(
     @ColumnInfo(name = "show_id") val showId: Long,
     @ColumnInfo(name = "trakt_id") override val traktId: Int? = null,
     @ColumnInfo(name = "tmdb_id") override val tmdbId: Int? = null,
+    @ColumnInfo(name = "tvdb_id") override val tvdbId: Int? = null,
     @ColumnInfo(name = "title") val title: String? = null,
     @ColumnInfo(name = "overview") val summary: String? = null,
     @ColumnInfo(name = "number") val number: Int? = null,
@@ -49,7 +50,7 @@ data class Season(
     @ColumnInfo(name = "trakt_votes") val traktRatingVotes: Int? = null,
     @ColumnInfo(name = "tmdb_poster_path") val tmdbPosterPath: String? = null,
     @ColumnInfo(name = "tmdb_backdrop_path") val tmdbBackdropPath: String? = null
-) : TiviEntity, TmdbIdEntity, TraktIdEntity {
+) : TiviEntity, TmdbIdEntity, TraktIdEntity, TvdbIdEntity {
     companion object {
         const val NUMBER_SPECIALS = 0
         val EMPTY = Season(showId = 0)

@@ -350,7 +350,10 @@ class SeasonsEpisodesRepository @Inject constructor(
             // TMDb specific stuff
             tmdbId = tmdb.tmdbId ?: trakt.tmdbId ?: local.tmdbId,
             tmdbPosterPath = tmdb.tmdbPosterPath ?: local.tmdbPosterPath,
-            tmdbBackdropPath = tmdb.tmdbBackdropPath ?: local.tmdbBackdropPath
+            tmdbBackdropPath = tmdb.tmdbBackdropPath ?: local.tmdbBackdropPath,
+
+            // Tvdb
+            tvdbId = trakt.tvdbId ?: tmdb.tvdbId ?: local.tvdbId
     )
 
     private fun mergeEpisode(local: Episode, trakt: Episode, tmdb: Episode) = local.copy(
@@ -366,6 +369,9 @@ class SeasonsEpisodesRepository @Inject constructor(
 
             // TMDb specific stuff
             tmdbId = tmdb.tmdbId ?: trakt.tmdbId ?: local.tmdbId,
-            tmdbBackdropPath = tmdb.tmdbBackdropPath ?: local.tmdbBackdropPath
+            tmdbBackdropPath = tmdb.tmdbBackdropPath ?: local.tmdbBackdropPath,
+
+            // Tvdb
+            tvdbId = trakt.tvdbId ?: tmdb.tvdbId ?: local.tvdbId
     )
 }

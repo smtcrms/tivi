@@ -26,6 +26,7 @@ class TmdbEpisodeToEpisode @Inject constructor() : Mapper<TvEpisode, Episode> {
     override suspend fun map(from: TvEpisode) = Episode(
             seasonId = 0,
             tmdbId = from.id,
+            tvdbId = from.external_ids?.tvdb_id,
             title = from.name,
             number = from.episode_number,
             summary = from.overview,

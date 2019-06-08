@@ -25,8 +25,9 @@ import com.uwetrottmann.trakt5.entities.Season as TraktSeason
 class TraktSeasonToSeason @Inject constructor() : Mapper<TraktSeason, Season> {
     override suspend fun map(from: TraktSeason) = Season(
             showId = 0,
-            traktId = from.ids.trakt,
-            tmdbId = from.ids.tmdb,
+            traktId = from.ids?.trakt,
+            tmdbId = from.ids?.tmdb,
+            tvdbId = from.ids?.tvdb,
             number = from.number,
             title = from.title,
             summary = from.overview,
