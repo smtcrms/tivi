@@ -40,7 +40,12 @@ class TvdbManager @Inject constructor(
     fun init() {
         GlobalScope.launch(dispatchers.io) {
             updateToken(false)
+            applyToken()
         }
+    }
+
+    private fun applyToken() {
+        theTvdb.jsonWebToken(simpleStorage.getString(STORAGE_KEY_TVDB_JWT))
     }
 
     fun updateToken(forceUpdate: Boolean) {
