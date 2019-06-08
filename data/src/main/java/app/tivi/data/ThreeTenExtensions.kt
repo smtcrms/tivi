@@ -38,3 +38,7 @@ fun instantInPast(days: Int = 0, hours: Int = 0, minutes: Int = 0): Instant {
     }
     return instant
 }
+
+fun Instant.isInPast() = isBefore(Instant.now())
+
+fun Instant.isInFuture() = isAfter(Instant.now())

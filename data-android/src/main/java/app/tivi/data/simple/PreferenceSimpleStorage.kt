@@ -21,12 +21,20 @@ import android.content.SharedPreferences
 class PreferenceSimpleStorage(
     private val preferences: SharedPreferences
 ) : SimpleStorage {
-    override fun save(key: String, value: String) {
+    override fun saveString(key: String, value: String) {
         preferences.edit().putString(key, value).apply()
     }
 
-    override fun get(key: String): String? {
+    override fun saveLong(key: String, value: Long) {
+        preferences.edit().putLong(key, value).apply()
+    }
+
+    override fun getString(key: String): String? {
         return preferences.getString(key, null)
+    }
+
+    override fun getLong(key: String): Long {
+        return preferences.getLong(key, 0)
     }
 
     override fun clearValue(key: String) {

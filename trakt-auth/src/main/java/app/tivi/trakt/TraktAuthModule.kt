@@ -16,8 +16,6 @@
 
 package app.tivi.trakt
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.net.Uri
 import androidx.core.net.toUri
 import app.tivi.appinitializers.AppInitializer
@@ -114,13 +112,6 @@ class TraktAuthModule {
     @Provides
     fun provideClientAuth(@Named("trakt-client-secret") clientSecret: String): ClientAuthentication {
         return ClientSecretBasic(clientSecret)
-    }
-
-    @Singleton
-    @Provides
-    @Named("auth")
-    fun provideAuthSharedPrefs(context: Context): SharedPreferences {
-        return context.getSharedPreferences("trakt_auth", Context.MODE_PRIVATE)
     }
 }
 

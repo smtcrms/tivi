@@ -17,7 +17,9 @@
 package app.tivi.data.simple
 
 interface SimpleStorage {
-    fun save(key: String, value: String)
-    fun get(key: String): String?
+    fun saveString(key: String, value: String)
+    fun saveLong(key: String, value: Long)
+    fun getString(key: String): String?
+    fun getLong(key: String): Long
     fun clearValue(key: String)
 }

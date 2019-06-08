@@ -124,7 +124,7 @@ class TraktManager @Inject constructor(
     }
 
     private fun readAuthState(): AuthState {
-        val stateJson = simpleStorage.get(STATE_KEY)
+        val stateJson = simpleStorage.getString(STATE_KEY)
         return when {
             stateJson != null -> AuthState.jsonDeserialize(stateJson)
             else -> AuthState()
@@ -132,7 +132,7 @@ class TraktManager @Inject constructor(
     }
 
     private fun persistAuthState(state: AuthState) {
-        simpleStorage.save(STATE_KEY, state.jsonSerializeString())
+        simpleStorage.saveString(STATE_KEY, state.jsonSerializeString())
     }
 
     companion object {

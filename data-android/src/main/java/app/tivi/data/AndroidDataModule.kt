@@ -16,10 +16,10 @@
 
 package app.tivi.data
 
-import androidx.room.Room
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Debug
+import androidx.room.Room
 import app.tivi.data.simple.PreferenceSimpleStorage
 import app.tivi.data.simple.SimpleStorage
 import dagger.Module
@@ -76,6 +76,13 @@ class AndroidDataModule {
     @Singleton
     @Provides
     fun provideDatabaseTransactionRunner(db: TiviDatabase): DatabaseTransactionRunner = RoomTransactionRunner(db)
+
+    @Singleton
+    @Provides
+    @Named("auth")
+    fun provideAuthSharedPrefs(context: Context): SharedPreferences {
+        return context.getSharedPreferences("auth", Context.MODE_PRIVATE)
+    }
 
     @Provides
     @Named("auth")

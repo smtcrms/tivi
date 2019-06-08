@@ -26,6 +26,7 @@ kapt {
 
 dependencies {
     implementation project(":base")
+    implementation project(":data")
 
     compile Libs.RxJava.rxJava
 
