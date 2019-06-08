@@ -16,9 +16,12 @@
 
 package app.tivi.tmdb
 
+import app.tivi.appinitializers.AppInitializer
 import com.uwetrottmann.tmdb2.Tmdb
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.IntoSet
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,7 +29,7 @@ import java.io.File
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [TmdbModuleBinds::class])
 class TmdbModule {
     @Singleton
     @Provides
@@ -45,4 +48,11 @@ class TmdbModule {
             }
         }
     }
+}
+
+@Module
+abstract class TmdbModuleBinds {
+    @Binds
+    @IntoSet
+    abstract fun provideTmdbInitializer(bind: TmdbInitializer): AppInitializer
 }

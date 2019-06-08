@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-package app.tivi.appinitializers
+package app.tivi.tmdb
 
-import android.app.Application
+import app.tivi.appinitializers.AppInitializer
+import javax.inject.Inject
 
-interface AppInitializer {
-    fun init(application: Application)
+class TmdbInitializer @Inject constructor(
+    private val tmdbManager: TmdbManager
+) : AppInitializer {
+    override fun init() {
+        tmdbManager.init()
+    }
 }

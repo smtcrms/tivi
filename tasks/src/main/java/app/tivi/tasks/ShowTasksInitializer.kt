@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
-package app.tivi.appinitializers
+package app.tivi.tasks
 
-import android.app.Application
+import android.content.Context
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import app.tivi.actions.ShowTasks
+import app.tivi.appinitializers.AppInitializer
 import app.tivi.tasks.inject.TiviWorkerFactory
 import javax.inject.Inject
 import javax.inject.Provider
 
 class ShowTasksInitializer @Inject constructor(
+    private val context: Context,
     private val showTasks: Provider<ShowTasks>,
     private val workerFactory: TiviWorkerFactory
 ) : AppInitializer {
-    override fun init(application: Application) {
+    override fun init() {
         val wmConfig = Configuration.Builder().setWorkerFactory(workerFactory).build()
-        WorkManager.initialize(application, wmConfig)
+        WorkManager.initialize(context, wmConfig)
 
         // This needs to be a Provider so that the initialize above is called
         // before WorkManager.getInstance()

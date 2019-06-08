@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-package app.tivi.data.repositories.shows
+package app.tivi.data.repositories.followedshows
 
-import app.tivi.inject.Tmdb
 import app.tivi.inject.Trakt
 import dagger.Binds
 import dagger.Module
 
 @Module
-abstract class ShowsModule {
-    @Binds
-    abstract fun bind(source: ShowRepositoryImpl): ShowRepository
-
+abstract class FollowedShowsDataModule {
     @Binds
     @Trakt
-    abstract fun bind(source: TraktShowDataSource): ShowDataSource
-
-    @Binds
-    @Tmdb
-    abstract fun bind(source: TmdbShowDataSource): ShowDataSource
+    abstract fun bind(source: TraktFollowedShowsDataSource): FollowedShowsDataSource
 }

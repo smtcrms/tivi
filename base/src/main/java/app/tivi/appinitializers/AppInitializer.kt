@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2017 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,6 @@
 
 package app.tivi.appinitializers
 
-import android.os.Looper
-import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.android.schedulers.AndroidSchedulers
-import javax.inject.Inject
-
-class RxAndroidInitializer @Inject constructor() : AppInitializer {
-    override fun init() {
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler {
-            AndroidSchedulers.from(Looper.getMainLooper(), true)
-        }
-    }
+interface AppInitializer {
+    fun init()
 }

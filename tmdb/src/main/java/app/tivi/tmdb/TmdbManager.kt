@@ -37,7 +37,7 @@ class TmdbManager @Inject constructor(
     val imageProviderObservable: Observable<TmdbImageUrlProvider>
         get() = imageProviderSubject
 
-    init {
+    fun init() {
         refreshConfiguration()
     }
 

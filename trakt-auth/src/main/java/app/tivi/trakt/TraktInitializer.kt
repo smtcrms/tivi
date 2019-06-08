@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,15 @@
  * limitations under the License.
  */
 
-package app.tivi.data.repositories.episodes
+package app.tivi.trakt
 
-import app.tivi.inject.Tmdb
-import app.tivi.inject.Trakt
-import dagger.Binds
-import dagger.Module
+import app.tivi.appinitializers.AppInitializer
+import javax.inject.Inject
 
-@Module
-abstract class EpisodesModule {
-    @Binds
-    @Trakt
-    abstract fun bind(source: TraktSeasonsEpisodesDataSource): SeasonsEpisodesDataSource
-
-    @Binds
-    @Trakt
-    abstract fun bind(source: TraktEpisodeDataSource): EpisodeDataSource
-
-    @Binds
-    @Tmdb
-    abstract fun bind(source: TmdbEpisodeDataSource): EpisodeDataSource
+class TraktInitializer @Inject constructor(
+    private val traktManager: TraktManager
+) : AppInitializer {
+    override fun init() {
+        traktManager.init()
+    }
 }
