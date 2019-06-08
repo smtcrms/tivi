@@ -85,6 +85,10 @@ class AppModule {
     fun provideTraktClientSecret(): String = BuildConfig.TRAKT_CLIENT_SECRET
 
     @Provides
+    @Named("tvdb-api")
+    fun provideTvdbApiKey(): String = BuildConfig.TVDB_API_KEY
+
+    @Provides
     fun provideCompositeDisposable() = CompositeDisposable()
 
     @Singleton
