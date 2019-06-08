@@ -24,9 +24,10 @@ import javax.inject.Singleton
 @Singleton
 class TraktShowToTiviShow @Inject constructor() : Mapper<Show, TiviShow> {
     override suspend fun map(from: Show) = TiviShow(
-            traktId = from.ids.trakt,
-            tmdbId = from.ids.tmdb,
-            imdbId = from.ids.imdb,
+            traktId = from.ids?.trakt,
+            tmdbId = from.ids?.tmdb,
+            imdbId = from.ids?.imdb,
+            tvdbId = from.ids?.tvdb,
             title = from.title,
             summary = from.overview,
             homepage = from.homepage,

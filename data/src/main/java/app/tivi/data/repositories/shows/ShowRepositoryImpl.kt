@@ -100,6 +100,8 @@ class ShowRepositoryImpl @Inject constructor(
             country = trakt.country ?: local.country,
             firstAired = trakt.firstAired ?: local.firstAired,
             _genres = trakt._genres ?: local._genres,
+            imdbId = trakt.imdbId ?: tmdb.imdbId,
+            tvdbId = trakt.tvdbId ?: tmdb.tvdbId,
 
             // Trakt specific stuff
             traktId = trakt.traktId ?: local.traktId,
