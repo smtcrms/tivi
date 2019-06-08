@@ -167,6 +167,7 @@ dependencies {
     implementation project(":trakt")
     implementation project(":trakt-auth")
     implementation project(":tmdb")
+    implementation project(":tvdb")
     implementation project(':interactors')
     implementation project(":tasks")
 

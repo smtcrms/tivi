@@ -48,7 +48,7 @@ class TraktShowDataSource @Inject constructor(
             if (response.isSuccessful) {
                 val body = response.bodyOrThrow()
                 if (body.isNotEmpty()) {
-                    traktId = body[0].show.ids.trakt
+                    traktId = body[0]?.show?.ids?.trakt
                 }
             } else {
                 return ErrorResult(response.toException())

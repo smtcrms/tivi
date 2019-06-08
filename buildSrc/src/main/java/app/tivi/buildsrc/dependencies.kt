@@ -39,6 +39,7 @@ object Libs {
 
     val tmdbJava = "com.uwetrottmann.tmdb2:tmdb-java:2.0.3"
     val traktJava = "com.uwetrottmann.trakt5:trakt-java:6.1.0"
+    val tvdbJava = "com.uwetrottmann.thetvdb-java:thetvdb-java:2.1.0"
 
     val appauth = "net.openid:appauth:0.7.1"
 

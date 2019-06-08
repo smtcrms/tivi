@@ -20,9 +20,11 @@
             <option value="$PROJECT_DIR$/tmdb" />
             <option value="$PROJECT_DIR$/trakt" />
             <option value="$PROJECT_DIR$/trakt-auth" />
+            <option value="$PROJECT_DIR$/tvdb" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>
