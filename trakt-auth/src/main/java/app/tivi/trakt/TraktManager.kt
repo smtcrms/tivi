@@ -51,7 +51,7 @@ class TraktManager @Inject constructor(
     @Named("app") private val appNavigator: AppNavigator,
     private val requestProvider: Provider<AuthorizationRequest>,
     private val clientAuth: Lazy<ClientAuthentication>,
-    private val showTasks: ShowTasks,
+    private val showTasks: Lazy<ShowTasks>,
     private val logger: Logger,
     @Named("auth") private val simpleStorage: SimpleStorage
 ) {
@@ -120,7 +120,7 @@ class TraktManager @Inject constructor(
             persistAuthState(newState)
         }
         // Now trigger a sync of all shows
-        showTasks.syncFollowedShowsWhenIdle()
+        showTasks.get().syncFollowedShowsWhenIdle()
     }
 
     private fun readAuthState(): AuthState {
