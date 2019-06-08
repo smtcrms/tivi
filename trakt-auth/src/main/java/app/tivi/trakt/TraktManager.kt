@@ -16,10 +16,9 @@
 
 package app.tivi.trakt
 
-import android.content.SharedPreferences
-import androidx.core.content.edit
 import app.tivi.AppNavigator
 import app.tivi.actions.ShowTasks
+import app.tivi.data.simple.SimpleStorage
 import app.tivi.util.AppCoroutineDispatchers
 import app.tivi.util.AppRxSchedulers
 import app.tivi.util.Logger
@@ -52,9 +51,9 @@ class TraktManager @Inject constructor(
     @Named("app") private val appNavigator: AppNavigator,
     private val requestProvider: Provider<AuthorizationRequest>,
     private val clientAuth: Lazy<ClientAuthentication>,
-    @Named("auth") private val authPrefs: SharedPreferences,
     private val showTasks: ShowTasks,
-    private val logger: Logger
+    private val logger: Logger,
+    @Named("auth") private val simpleStorage: SimpleStorage
 ) {
     private val authState = BehaviorSubject.create<AuthState>()
 
@@ -123,7 +122,7 @@ class TraktManager @Inject constructor(
     }
 
     private fun readAuthState(): AuthState {
-        val stateJson = authPrefs.getString("stateJson", null)
+        val stateJson = simpleStorage.get(STATE_KEY)
         return when {
             stateJson != null -> AuthState.jsonDeserialize(stateJson)
             else -> AuthState()
@@ -131,8 +130,10 @@ class TraktManager @Inject constructor(
     }
 
     private fun persistAuthState(state: AuthState) {
-        authPrefs.edit {
-            putString("stateJson", state.jsonSerializeString())
-        }
+        simpleStorage.save(STATE_KEY, state.jsonSerializeString())
+    }
+
+    companion object {
+        private const val STATE_KEY = "stateJson"
     }
 }

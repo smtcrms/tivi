@@ -18,7 +18,7 @@ package app.tivi.inject
 
 import app.tivi.TiviApplication
 import app.tivi.data.DataModule
-import app.tivi.data.DatabaseModule
+import app.tivi.data.AndroidDataModule
 import app.tivi.home.HomeBuilder
 import app.tivi.showdetails.ShowDetailsBuilder
 import app.tivi.tasks.inject.TasksModule
@@ -36,7 +36,7 @@ import javax.inject.Singleton
     AppModule::class,
     TasksModule::class,
     AppAssistedModule::class,
-    DatabaseModule::class,
+    AndroidDataModule::class,
     DataModule::class,
     HomeBuilder::class,
     ShowDetailsBuilder::class,
